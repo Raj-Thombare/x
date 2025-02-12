@@ -69,7 +69,7 @@ const LeftBar = () => {
   return (
     <div className='h-screen sticky top-0 flex flex-col justify-between pt-2 pb-8'>
       {/* LOGO MENU BUTTON */}
-      <div className='flex flex-col gap-4 text-lg items-center'>
+      <div className='flex flex-col gap-4 text-lg items-center xxl:items-start'>
         <Link href='/' className='p-2 rounded-full hover:bg-[#181818]'>
           <Image path='icons/logo.svg' alt='logo' w={24} h={24} />
         </Link>
