@@ -1,7 +1,7 @@
 import React from "react";
 
-const Rightbar = () => {
-  return <div>RightSidebar</div>;
+const RightBar = () => {
+  return <div>RightBar</div>;
 };
 
-export default Rightbar;
+export default RightBar;

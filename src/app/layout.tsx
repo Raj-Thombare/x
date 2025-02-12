@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Rightbar from "@/components/Rightbar";
 import LeftBar from "@/components/LeftBar";
+import RightBar from "@/components/RightBar";
 
 export const metadata: Metadata = {
   title: "X",
@@ -24,7 +24,7 @@ export default function RootLayout({
             {children}
           </div>
           <div className='hidden lg:flex ml-4 md:ml-8 flex-1'>
-            <Rightbar />
+            <RightBar />
           </div>
         </div>
       </body>
