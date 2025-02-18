@@ -16,9 +16,11 @@ export async function shareAction(formData: FormData, settings: { type: 'origina
       file: buffer,
       fileName: file.name,
       folder: "/posts",
-      transformation: {
-        pre: transformation
-      },
+      ...(file.type.includes("image") && {
+        transformation: {
+          pre: transformation
+        },
+      }),
       customMetadata: {
         sensitive: settings.sensitive
       }
