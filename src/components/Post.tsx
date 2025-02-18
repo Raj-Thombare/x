@@ -50,7 +50,7 @@ const Post = async () => {
       <div className='flex gap-4'>
         {/* AVATAR */}
         <div className='relative w-10 h-10 rounded-full overflow-hidden'>
-          <Image path='general/avatar2.jpg' alt='' w={100} h={100} tr={true} />
+          <Image path='general/avatar.jpg' alt='' w={100} h={100} tr={true} />
         </div>
         {/* CONTENT */}
 
@@ -60,7 +60,7 @@ const Post = async () => {
           <div className='flex items-center justify-between gap-2'>
             <div className='flex items-center gap-2 flex-wrap'>
               <h1 className='text-md font-bold'>Raj Thombare</h1>
-              <span className='text-textGray'>@rajth0mbare</span>
+              <span className='text-textGray'>@RajTh0mbare</span>
               <span className='text-textGray'>1 day ago</span>
             </div>
             <PostInfo />

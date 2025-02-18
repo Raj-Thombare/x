@@ -108,7 +108,7 @@ const LeftBar = () => {
         <div className='flex items-center gap-2'>
           <div className='w-10 h-10 relative rounded-full overflow-hidden'>
             <Image
-              path='/general/avatar2.jpg'
+              path='/general/avatar.jpg'
               alt='raj thombare'
               tr={true}
               w={100}
@@ -117,7 +117,7 @@ const LeftBar = () => {
           </div>
           <div className='hidden xxl:flex flex-col'>
             <span className='font-bold'>Raj Thombare</span>
-            <span className='text-sm text-textGray'>@rajth0mbare</span>
+            <span className='text-sm text-textGray'>@RajTh0mbare</span>
           </div>
         </div>
         <div className='hidden xxl:block cursor-pointer font-bold'>...</div>
