@@ -2,7 +2,7 @@ import Feed from "@/components/Feed";
 import Image from "@/components/Image";
 import Link from "next/link";
 
-const page = () => {
+const UserPage = () => {
   return (
     <div className=''>
       {/* PROFILE TITLE */}
@@ -82,4 +82,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default UserPage;
