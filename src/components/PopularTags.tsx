@@ -26,14 +26,6 @@ const PopularTags = () => {
           <span className='text-sm text-textGray'>Last Night</span>
         </div>
       </div>
-      <div className=''>
-        <div className='flex items-center justify-between'>
-          <span className='text-textGray text-sm'>Technology • Trending</span>
-          <Image path='icons/infoMore.svg' alt='info' w={16} h={16} />
-        </div>
-        <h2 className='text-textGrayLight font-bold'>OpenAI</h2>
-        <span className='text-textGray text-sm'>20K posts</span>
-      </div>
       {/* TOPICS */}
       <div className=''>
         <div className='flex items-center justify-between'>
@@ -46,6 +38,15 @@ const PopularTags = () => {
           India&apos;s Got Latent
         </h2>
         <span className='text-textGray text-sm'>1M posts</span>
+      </div>
+      {/* TOPICS */}
+      <div className=''>
+        <div className='flex items-center justify-between'>
+          <span className='text-textGray text-sm'>Technology • Trending</span>
+          <Image path='icons/infoMore.svg' alt='info' w={16} h={16} />
+        </div>
+        <h2 className='text-textGrayLight font-bold'>OpenAI</h2>
+        <span className='text-textGray text-sm'>20K posts</span>
       </div>
       {/* TOPICS */}
       <div className=''>

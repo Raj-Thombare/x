@@ -1,4 +1,5 @@
 import Feed from "@/components/Feed";
+import Share from "@/components/Share";
 import Link from "next/link";
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
           CSS
         </Link> */}
       </div>
+      <Share />
       <Feed />
     </div>
   );
