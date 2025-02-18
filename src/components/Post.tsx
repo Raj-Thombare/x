@@ -1,9 +1,9 @@
-import React from "react";
+import { imagekit } from "../../utils";
 import Image from "./Image";
 import PostInfo from "./PostInfo";
 import PostInteractions from "./PostInteractions";
-import { imagekit } from "../../utils";
 import Video from "./Video";
+import Link from "next/link";
 
 interface FileDetailsResponse {
   width: number;
@@ -11,12 +11,10 @@ interface FileDetailsResponse {
   filePath: string;
   url: string;
   fileType: string;
-  customMetadata?: {
-    sensitive: boolean;
-  };
+  customMetadata?: { sensitive: boolean };
 }
 
-const Post = async () => {
+const Post = async ({ type }: { type?: "status" | "comment" }) => {
   const getFileDetails = async (
     fileId: string
   ): Promise<FileDetailsResponse> => {
@@ -29,11 +27,13 @@ const Post = async () => {
   };
 
   const fileDetails = await getFileDetails("67b30bbe432c476416b10437");
+
   console.log(fileDetails);
+
   return (
     <div className='p-4 border-y-[1px] border-borderGray'>
       {/* POST TYPE */}
-      <div className='flex items-center gap-2 text-sm text-textGray mb-2 font-bold'>
+      <div className='flex items-center gap-2 text-sm text-textGray mb-2 from-bold'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='18'
@@ -47,33 +47,59 @@ const Post = async () => {
         <span>Raj Thombare reposted</span>
       </div>
       {/* POST CONTENT */}
-      <div className='flex gap-4'>
+      <div className={`flex gap-4 ${type === "status" && "flex-col"}`}>
         {/* AVATAR */}
-        <div className='relative w-10 h-10 rounded-full overflow-hidden'>
+        <div
+          className={`${
+            type === "status" && "hidden"
+          } relative w-10 h-10 rounded-full overflow-hidden`}>
           <Image path='general/avatar.jpg' alt='' w={100} h={100} tr={true} />
         </div>
         {/* CONTENT */}
-
         <div className='flex-1 flex flex-col gap-2'>
           {/* TOP */}
-
-          <div className='flex items-center justify-between gap-2'>
-            <div className='flex items-center gap-2 flex-wrap'>
-              <h1 className='text-md font-bold'>Raj Thombare</h1>
-              <span className='text-textGray'>@RajTh0mbare</span>
-              <span className='text-textGray'>1 day ago</span>
-            </div>
+          <div className='w-full flex justify-between'>
+            <Link href={`/rajth0mbare`} className='flex gap-4'>
+              <div
+                className={`${
+                  type !== "status" && "hidden"
+                } relative w-10 h-10 rounded-full overflow-hidden`}>
+                <Image
+                  path='general/avatar.jpg'
+                  alt=''
+                  w={100}
+                  h={100}
+                  tr={true}
+                />
+              </div>
+              <div
+                className={`flex items-center gap-2 flex-wrap ${
+                  type === "status" && "flex-col gap-0 !items-start"
+                }`}>
+                <h1 className='text-md font-bold'>Raj Thombare</h1>
+                <span
+                  className={`text-textGray ${type === "status" && "text-sm"}`}>
+                  @RajTh0mbare
+                </span>
+                {type !== "status" && (
+                  <span className='text-textGray'>1 day ago</span>
+                )}
+              </div>
+            </Link>
             <PostInfo />
           </div>
-
           {/* TEXT & MEDIA */}
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi
-            cupiditate rem in laudantium deserunt, nisi libero ex vitae iste,
-            tenetur soluta, quibusdam magnam. Nulla animi voluptates nisi
-            voluptate eum a, neque eos ipsum.
-          </p>
-          {fileDetails && fileDetails.fileType == "image" ? (
+          <Link href={`/rajth0mbare/status/123`}>
+            <p className={`${type === "status" && "text-lg"}`}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum,
+              animi. Laborum commodi aliquam alias molestias odio, ab in,
+              reprehenderit excepturi temporibus, ducimus necessitatibus fugiat
+              iure nam voluptas soluta pariatur inventore.
+            </p>
+          </Link>
+          {/* <Image path='general/post.jpeg' alt='' w={600} h={600} /> */}
+          {/* AFTER FETCHING THE POST MEDIA */}
+          {fileDetails && fileDetails.fileType === "image" ? (
             <Image
               path={fileDetails.filePath}
               alt=''
@@ -86,6 +112,13 @@ const Post = async () => {
               path={fileDetails.filePath}
               className={fileDetails.customMetadata?.sensitive ? "blur-lg" : ""}
             />
+          )}
+          {type === "status" && (
+            <span className='text-textGray pt-2'>
+              8:41 PM · Dec 5, 2024 ·{" "}
+              <span className='font-bold mr-1'> 66.1k</span>
+              Views
+            </span>
           )}
           <PostInteractions />
         </div>

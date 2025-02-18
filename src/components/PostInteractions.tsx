@@ -46,8 +46,6 @@ const PostInteractions = () => {
           </svg>
           <span className='group-hover:text-iconPink text-sm'>600</span>
         </div>
-      </div>
-      <div className='flex items-center gap-2'>
         <div className='cursor-pointer group'>
           <svg
             xmlns='http://www.w3.org/2000/svg'

@@ -4,7 +4,7 @@ import LeftBar from "@/components/LeftBar";
 import RightBar from "@/components/RightBar";
 
 export const metadata: Metadata = {
-  title: "Raj Thombare X Clone",
+  title: "Social X",
   description: "Next.js social media application project",
 };
 
