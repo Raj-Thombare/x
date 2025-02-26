@@ -31,7 +31,7 @@ const Share = () => {
       action={(formData) => shareAction(formData, settings)}>
       {/* AVATAR */}
       <div className='relative w-10 h-10 rounded-full overflow-hidden'>
-        <Image path='general/avatar2.jpg' alt='' w={100} h={100} tr={true} />
+        <Image path='general/avatar.jpg' alt='' w={100} h={100} tr={true} />
       </div>
       {/* OTHERS */}
       <div className='flex flex-1 flex-col gap-4'>
