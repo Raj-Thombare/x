@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Next.js social media application project",
 };
 
-export default function RootLayout({
+export default function AppLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
