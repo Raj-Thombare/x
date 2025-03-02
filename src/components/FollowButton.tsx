@@ -3,7 +3,6 @@
 import React from "react";
 
 const FollowButton = ({
-  userId,
   isFollowed,
 }: {
   userId: string;
