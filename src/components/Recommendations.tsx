@@ -9,8 +9,9 @@ const Recommendations = async () => {
   if (!userId) return;
 
   const followingIds = await prisma.follow.findMany({
-    where: { followerId: userId },
-    select: { followingId: true },
+    where: {
+      followerId: userId,
+    },
   });
 
   const followedUserIds = followingIds.map((f) => f.followingId);
@@ -21,7 +22,12 @@ const Recommendations = async () => {
       followings: { some: { followerId: { in: followedUserIds } } },
     },
     take: 3,
-    select: { id: true, displayName: true, username: true, img: true },
+    select: {
+      id: true,
+      displayName: true,
+      username: true,
+      img: true,
+    },
   });
 
   return (

@@ -101,8 +101,10 @@ const Post = ({
                 />
               </div>
               <div
-                className={`flex items-center gap-2 flex-wrap ${
-                  type === "status" && "flex-col gap-0 !items-start"
+                className={`flex items-center ${
+                  type === "status"
+                    ? "flex-col gap-0 !items-start"
+                    : "gap-2 flex-wrap"
                 }`}>
                 <h1 className='text-md font-bold'>
                   {originalPost.user.displayName}
@@ -121,7 +123,8 @@ const Post = ({
             <PostInfo />
           </div>
           {/* TEXT & MEDIA */}
-          <Link href={`/rajth0mbare/status/123`}>
+          <Link
+            href={`/${originalPost.user.username}/status/${originalPost.id}`}>
             <p className={`${type === "status" && "text-lg"}`}>
               {originalPost?.desc}
             </p>
