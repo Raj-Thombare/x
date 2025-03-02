@@ -13,23 +13,31 @@ type PostWithDetails = PostType & {
     username: string;
     img: string | null;
   };
-  repost?: PostType & {
-    user: {
-      displayName: string | null;
-      username: string;
-      img: string | null;
-    };
-    _count: {
-      likes: number;
-      reposts: number;
-      comments: number;
-    };
-  };
+  repost?:
+    | (PostType & {
+        user: {
+          displayName: string | null;
+          username: string;
+          img: string | null;
+        };
+        _count: {
+          likes: number;
+          reposts: number;
+          comments: number;
+        };
+        likes: { id: number }[];
+        reposts: { id: number }[];
+        saves: { id: number }[];
+      })
+    | null;
   _count: {
     likes: number;
     reposts: number;
     comments: number;
   };
+  likes: { id: number }[];
+  reposts: { id: number }[];
+  saves: { id: number }[];
 };
 
 const Post = ({
@@ -39,7 +47,7 @@ const Post = ({
   type?: "status" | "comment";
   post: PostWithDetails;
 }) => {
-  const originalPost = post.repost || post;
+  const originalPost = post?.repost || post;
   return (
     <div className='p-4 border-y-[1px] border-borderGray'>
       {/* POST TYPE */}
@@ -77,7 +85,9 @@ const Post = ({
         <div className='flex-1 flex flex-col gap-2'>
           {/* TOP */}
           <div className='w-full flex justify-between'>
-            <Link href={`/rajth0mbare`} className='flex gap-4'>
+            <Link
+              href={`/${originalPost.user.username}`}
+              className='flex gap-4'>
               <div
                 className={`${
                   type !== "status" && "hidden"
@@ -126,7 +136,12 @@ const Post = ({
               Views
             </span>
           )}
-          <PostInteractions count={originalPost._count} />
+          <PostInteractions
+            count={originalPost._count}
+            isLiked={!!originalPost.likes.length}
+            reposted={!!originalPost.reposts.length}
+            saves={!!originalPost.saves.length}
+          />
         </div>
       </div>
     </div>

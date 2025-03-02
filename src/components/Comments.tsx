@@ -1,5 +1,5 @@
 import Image from "./Image";
-import Post from "./Post";
+// import Post from "./Post";
 
 const Comments = () => {
   return (
@@ -23,12 +23,12 @@ const Comments = () => {
           Reply
         </button>
       </form>
+      {/* <Post />
       <Post />
       <Post />
       <Post />
       <Post />
-      <Post />
-      <Post />
+      <Post /> */}
     </div>
   );
 };
