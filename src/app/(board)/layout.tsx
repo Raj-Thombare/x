@@ -1,11 +1,5 @@
-import type { Metadata } from "next";
 import LeftBar from "@/components/LeftBar";
 import RightBar from "@/components/RightBar";
-
-export const metadata: Metadata = {
-  title: "Social X",
-  description: "Next.js social media application project",
-};
 
 export default function BoardLayout({
   children,
