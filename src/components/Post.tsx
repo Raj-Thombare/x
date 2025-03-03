@@ -140,10 +140,11 @@ const Post = ({
             </span>
           )}
           <PostInteractions
+            postId={originalPost.id}
             count={originalPost._count}
             isLiked={!!originalPost.likes.length}
-            reposted={!!originalPost.reposts.length}
-            saves={!!originalPost.saves.length}
+            isReposted={!!originalPost.reposts.length}
+            isSaved={!!originalPost.saves.length}
           />
         </div>
       </div>
