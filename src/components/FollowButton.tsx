@@ -9,7 +9,12 @@ const FollowButton = ({
   isFollowed: boolean;
 }) => {
   return (
-    <button className='py-2 px-4 bg-white text-black font-bold rounded-full'>
+    <button
+      className={` ${
+        isFollowed
+          ? "text-white bg-black border-[1px] border-gray-500"
+          : "bg-white text-black"
+      } py-2 px-4  font-bold rounded-full`}>
       {isFollowed ? "Unfollow" : "Follow"}
     </button>
   );
