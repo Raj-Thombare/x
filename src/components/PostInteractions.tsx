@@ -1,6 +1,6 @@
 "use client";
 
-import { likePost, repost, savePost } from "@/actions/post";
+import { likePost, rePost, savePost } from "@/actions/post";
 import React, { useOptimistic, useState } from "react";
 
 const PostInteractions = ({
@@ -27,6 +27,7 @@ const PostInteractions = ({
   const likeAction = async () => {
     addOptimisticCount("like");
     await likePost(postId);
+
     setState((prev) => {
       return {
         ...prev,
@@ -35,22 +36,22 @@ const PostInteractions = ({
       };
     });
   };
-
   const repostAction = async () => {
     addOptimisticCount("repost");
-    await repost(postId);
+    await rePost(postId);
+
     setState((prev) => {
       return {
         ...prev,
-        rePosts: prev.isReposted ? prev.reposts - 1 : prev.reposts + 1,
-        isRePosted: !prev.isReposted,
+        reposts: prev.isReposted ? prev.reposts - 1 : prev.reposts + 1,
+        isReposted: !prev.isReposted,
       };
     });
   };
-
   const saveAction = async () => {
     addOptimisticCount("save");
     await savePost(postId);
+
     setState((prev) => {
       return {
         ...prev,
@@ -69,19 +70,22 @@ const PostInteractions = ({
           isLiked: !prev.isLiked,
         };
       }
+
       if (type === "repost") {
         return {
           ...prev,
           reposts: prev.isReposted ? prev.reposts - 1 : prev.reposts + 1,
-          isRePosted: !prev.isReposted,
+          isReposted: !prev.isReposted,
         };
       }
+
       if (type === "save") {
         return {
           ...prev,
           isSaved: !prev.isSaved,
         };
       }
+
       return prev;
     }
   );
@@ -124,7 +128,7 @@ const PostInteractions = ({
             </svg>
             <span
               className={`${
-                isReposted ? "text-iconGreen" : "text-textGray"
+                optimisticCount.isReposted ? "text-iconGreen" : "text-textGray"
               } group-hover:text-iconGreen text-sm`}>
               {optimisticCount?.reposts}
             </span>

@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "@/components/Image";
+import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
 const PostModal = () => {
+  const { user } = useUser();
   const router = useRouter();
 
   const closeModal = () => {
@@ -22,15 +24,17 @@ const PostModal = () => {
         </div>
         {/* CENTER */}
         <div className='py-8 flex gap-4'>
-          <div className='relative w-10 h-10 rounded-full overflow-hidden'>
-            <Image
-              path='general/avatar.png'
-              alt='Lama Dev'
-              w={100}
-              h={100}
-              tr={true}
-            />
-          </div>
+          {user && (
+            <div className='relative w-10 h-10 rounded-full overflow-hidden'>
+              <Image
+                path={user?.imageUrl}
+                alt={user?.username || ""}
+                w={100}
+                h={100}
+                tr={true}
+              />
+            </div>
+          )}
           <input
             className='flex-1 bg-transparent outline-none text-lg'
             type='text'

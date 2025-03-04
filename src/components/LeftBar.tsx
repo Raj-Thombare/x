@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
 import Image from "./Image";
+import { useUser } from "@clerk/nextjs";
 
 const menuList = [
   {
@@ -66,6 +69,7 @@ const menuList = [
 ];
 
 const LeftBar = () => {
+  const { user } = useUser();
   return (
     <div className='h-screen sticky top-0 flex flex-col justify-between pt-2 pb-8'>
       {/* LOGO MENU BUTTON */}
@@ -104,24 +108,26 @@ const LeftBar = () => {
         </Link>
       </div>
       {/* USER */}
-      <div className='flex items-center justify-between'>
-        <div className='flex items-center gap-2'>
-          <div className='w-10 h-10 relative rounded-full overflow-hidden'>
-            <Image
-              path='/general/avatar.jpg'
-              alt='raj thombare'
-              tr={true}
-              w={100}
-              h={100}
-            />
+      {user && (
+        <div className='flex items-center justify-between'>
+          <div className='flex items-center gap-2'>
+            <div className='w-10 h-10 relative rounded-full overflow-hidden'>
+              <Image
+                src={user?.imageUrl}
+                alt={user?.username || ""}
+                tr={true}
+                w={100}
+                h={100}
+              />
+            </div>
+            <div className='hidden xxl:flex flex-col'>
+              <span className='font-bold'>Raj Thombare</span>
+              <span className='text-sm text-textGray'>@RajTh0mbare</span>
+            </div>
           </div>
-          <div className='hidden xxl:flex flex-col'>
-            <span className='font-bold'>Raj Thombare</span>
-            <span className='text-sm text-textGray'>@RajTh0mbare</span>
-          </div>
+          <div className='hidden xxl:block cursor-pointer font-bold'>...</div>
         </div>
-        <div className='hidden xxl:block cursor-pointer font-bold'>...</div>
-      </div>
+      )}
     </div>
   );
 };

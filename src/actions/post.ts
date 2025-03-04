@@ -31,48 +31,58 @@ export const likePost = async (postId: number) => {
     }
 }
 
-export const repost = async (postId: number) => {
+export const rePost = async (postId: number) => {
     const { userId } = await auth();
 
-    if (!userId) return;
+    if (!userId) return
 
     const existingRepost = await prisma.post.findFirst({
         where: {
-            userId: userId,
             repostId: postId,
-        },
-    });
+            userId: userId
+        }
+    })
 
     if (existingRepost) {
         await prisma.post.delete({
-            where: { id: existingRepost.id },
-        });
+            where: {
+                id: existingRepost.id
+            }
+        })
     } else {
         await prisma.post.create({
-            data: { userId, repostId: postId },
-        });
+            data: {
+                repostId: postId,
+                userId
+            }
+        })
     }
-};
+}
 
 export const savePost = async (postId: number) => {
     const { userId } = await auth();
 
-    if (!userId) return;
+    if (!userId) return
 
-    const existingSavedPost = await prisma.savedPosts.findFirst({
+    const existingSave = await prisma.savedPosts.findFirst({
         where: {
-            userId: userId,
             postId: postId,
-        },
-    });
+            userId: userId
+        }
+    })
 
-    if (existingSavedPost) {
+    if (existingSave) {
         await prisma.savedPosts.delete({
-            where: { id: existingSavedPost.id },
-        });
+            where: {
+                id: existingSave.id
+            }
+        })
     } else {
         await prisma.savedPosts.create({
-            data: { userId, postId },
-        });
+            data: {
+                postId,
+                userId
+            }
+        })
     }
-};
+}
