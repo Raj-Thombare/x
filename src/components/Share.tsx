@@ -5,8 +5,10 @@ import Image from "./Image";
 import NextImage from "next/image";
 import { shareAction } from "@/actions/common";
 import ImageEditor from "./ImageEditor";
+import { useUser } from "@clerk/nextjs";
 
 const Share = () => {
+  const { user } = useUser();
   const [media, setMedia] = useState<File | null>(null);
   const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false);
   const [settings, setSettings] = useState<{
@@ -30,9 +32,17 @@ const Share = () => {
       className='p-4 flex gap-4'
       action={(formData) => shareAction(formData, settings)}>
       {/* AVATAR */}
-      <div className='relative w-10 h-10 rounded-full overflow-hidden'>
-        <Image path='general/avatar.jpg' alt='' w={100} h={100} tr={true} />
-      </div>
+      {user && (
+        <div className='relative w-10 h-10 rounded-full overflow-hidden'>
+          <Image
+            src={user?.imageUrl}
+            alt={user?.username || ""}
+            w={100}
+            h={100}
+            tr={true}
+          />
+        </div>
+      )}
       {/* OTHERS */}
       <div className='flex flex-1 flex-col gap-4'>
         <input

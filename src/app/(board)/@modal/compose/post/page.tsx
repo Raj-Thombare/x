@@ -27,7 +27,7 @@ const PostModal = () => {
           {user && (
             <div className='relative w-10 h-10 rounded-full overflow-hidden'>
               <Image
-                path={user?.imageUrl}
+                src={user?.imageUrl}
                 alt={user?.username || ""}
                 w={100}
                 h={100}

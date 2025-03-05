@@ -48,6 +48,7 @@ const Post = ({
   post: PostWithDetails;
 }) => {
   const originalPost = post?.repost || post;
+  console.log(originalPost);
   return (
     <div className='p-4 border-y-[1px] border-borderGray'>
       {/* POST TYPE */}
@@ -93,7 +94,7 @@ const Post = ({
                   type !== "status" && "hidden"
                 } relative w-10 h-10 rounded-full overflow-hidden`}>
                 <Image
-                  path={originalPost.user.img || "general/noAvatar.png"}
+                  path={originalPost?.img || "general/noAvatar.png"}
                   alt=''
                   w={100}
                   h={100}
