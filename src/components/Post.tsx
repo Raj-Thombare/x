@@ -130,8 +130,16 @@ const Post = ({
               {originalPost?.desc}
             </p>
           </Link>
-          {originalPost?.img && (
-            <Image path={originalPost.img} alt='' w={600} h={600} />
+          {originalPost.img && (
+            <div className='overflow-hidden'>
+              <Image
+                path={originalPost.img}
+                alt=''
+                w={600}
+                h={originalPost.imgHeight || 600}
+                className={originalPost.isSensitive ? "blur-3xl" : ""}
+              />
+            </div>
           )}
           {type === "status" && (
             <span className='text-textGray pt-2'>

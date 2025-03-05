@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useActionState, useEffect, useRef, useState } from "react";
 import Image from "./Image";
 import NextImage from "next/image";
-import { shareAction } from "@/actions/common";
+// import { shareAction } from "@/actions/common";
 import ImageEditor from "./ImageEditor";
 import { useUser } from "@clerk/nextjs";
+import { addPost } from "@/actions/post";
 
 const Share = () => {
   const { user } = useUser();
@@ -27,10 +28,24 @@ const Share = () => {
 
   const previewURL = media ? URL.createObjectURL(media) : null;
 
+  const [state, formAction, isPending] = useActionState(addPost, {
+    success: false,
+    error: false,
+  });
+
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  useEffect(() => {
+    if (state.success) formRef.current?.reset();
+  }, [state]);
+
   return (
     <form
+      ref={formRef}
       className='p-4 flex gap-4'
-      action={(formData) => shareAction(formData, settings)}>
+      action={formAction}
+      // action={(formData) => shareAction(formData, settings)}
+    >
       {/* AVATAR */}
       {user && (
         <div className='relative w-10 h-10 rounded-full overflow-hidden'>
@@ -45,6 +60,20 @@ const Share = () => {
       )}
       {/* OTHERS */}
       <div className='flex flex-1 flex-col gap-4'>
+        <input
+          type='text'
+          name='imgType'
+          value={settings.type}
+          hidden
+          readOnly
+        />
+        <input
+          type='text'
+          name='isSensitive'
+          value={settings.sensitive ? "true" : "false"}
+          hidden
+          readOnly
+        />
         <input
           type='text'
           name='desc'
@@ -142,9 +171,13 @@ const Share = () => {
           </div>
           <button
             type='submit'
-            className='bg-white text-black font-bold rounded-full py-2 px-4'>
-            Post
+            className='bg-white text-black font-bold rounded-full py-2 px-4 disabled:cursor-not-allowed'
+            disabled={isPending}>
+            {isPending ? "Posting" : "Post"}
           </button>
+          {state.error && (
+            <span className='text-red-300'>Something went wrong</span>
+          )}
         </div>
       </div>
     </form>
