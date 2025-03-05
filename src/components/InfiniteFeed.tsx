@@ -33,8 +33,8 @@ const InfiniteFeed = ({ userProfileId }: { userProfileId?: string }) => {
       dataLength={allPosts.length}
       hasMore={!!hasNextPage}
       next={fetchNextPage}
-      loader={<h1>Posts are loading...</h1>}
-      endMessage={<h1>All posts loaded!</h1>}>
+      loader={<h1 className='text-center'>Posts are loading...</h1>}
+      endMessage={<h1 className='text-center'>All posts loaded!</h1>}>
       {allPosts.map((post) => {
         return <Post post={post} key={post.id} />;
       })}

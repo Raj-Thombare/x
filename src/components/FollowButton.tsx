@@ -32,7 +32,7 @@ const FollowButton = ({
     <form action={followAction}>
       <button
         className={` ${
-          isFollowed
+          optimisticFollow
             ? "text-white bg-black border-[1px] border-gray-500"
             : "bg-white text-black"
         } py-2 px-4  font-bold rounded-full`}>

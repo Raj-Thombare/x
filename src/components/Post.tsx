@@ -48,7 +48,7 @@ const Post = ({
   post: PostWithDetails;
 }) => {
   const originalPost = post?.repost || post;
-  console.log(originalPost);
+
   return (
     <div className='p-4 border-y-[1px] border-borderGray'>
       {/* POST TYPE */}
