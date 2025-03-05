@@ -7,6 +7,34 @@ import { z } from "zod";
 import { imagekit } from "../../utils";
 import { UploadResponse } from "imagekit/dist/libs/interfaces";
 
+export const followUser = async (targetUserId: string) => {
+    const { userId } = await auth();
+
+    if (!userId) return
+
+    const existingFollow = await prisma.follow.findFirst({
+        where: {
+            followerId: userId,
+            followingId: targetUserId
+        }
+    })
+
+    if (existingFollow) {
+        await prisma.follow.delete({
+            where: {
+                id: existingFollow.id
+            }
+        })
+    } else {
+        await prisma.follow.create({
+            data: {
+                followerId: userId,
+                followingId: targetUserId
+            }
+        })
+    }
+}
+
 export const likePost = async (postId: number) => {
     const { userId } = await auth();
 

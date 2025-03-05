@@ -1,6 +1,6 @@
 "use client";
 
-import { likePost, rePost, savePost } from "@/actions/post";
+import { likePost, rePost, savePost } from "@/actions/actions";
 import React, { useOptimistic, useState } from "react";
 
 const PostInteractions = ({

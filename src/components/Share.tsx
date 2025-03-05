@@ -3,10 +3,9 @@
 import React, { useActionState, useEffect, useRef, useState } from "react";
 import Image from "./Image";
 import NextImage from "next/image";
-// import { shareAction } from "@/actions/common";
 import ImageEditor from "./ImageEditor";
 import { useUser } from "@clerk/nextjs";
-import { addPost } from "@/actions/post";
+import { addPost } from "@/actions/actions";
 
 const Share = () => {
   const { user } = useUser();

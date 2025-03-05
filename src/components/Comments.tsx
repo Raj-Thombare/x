@@ -5,7 +5,7 @@ import Image from "./Image";
 import Post from "./Post";
 import { Post as PostType } from "@prisma/client";
 import { useActionState } from "react";
-import { addComment } from "@/actions/post";
+import { addComment } from "@/actions/actions";
 
 type CommentWithDetails = PostType & {
   user: { displayName: string | null; username: string; img: string | null };
