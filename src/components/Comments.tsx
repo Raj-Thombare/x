@@ -4,8 +4,9 @@ import { useUser } from "@clerk/nextjs";
 import Image from "./Image";
 import Post from "./Post";
 import { Post as PostType } from "@prisma/client";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { addComment } from "@/actions/actions";
+import { socket } from "@/socket";
 
 type CommentWithDetails = PostType & {
   user: { displayName: string | null; username: string; img: string | null };
@@ -31,13 +32,26 @@ const Comments = ({
     error: false,
   });
 
+  useEffect(() => {
+    if (state.success) {
+      socket.emit("sendNotification", {
+        receiverUsername: username,
+        data: {
+          senderUsername: user?.username,
+          type: "comment",
+          link: `/${username}/status/${postId}`,
+        },
+      });
+    }
+  }, [state.success, username, user?.username, postId]);
+
   return (
     <div className=''>
       {user && (
         <form
           action={formAction}
           className='flex items-center justify-between gap-4 p-4 '>
-          <div className='relative w-10 h-10 rounded-full overflow-hidden'>
+          <div className='relative w-10 h-10 rounded-full overflow-hidden -z-10'>
             <Image
               src={user?.imageUrl}
               alt={user?.username || ""}

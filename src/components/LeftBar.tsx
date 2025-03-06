@@ -4,6 +4,8 @@ import Link from "next/link";
 import React from "react";
 import Image from "./Image";
 import { useUser } from "@clerk/nextjs";
+import Socket from "./Socket";
+import Notification from "./Notification";
 
 const menuList = [
   {
@@ -18,12 +20,12 @@ const menuList = [
     link: "/",
     icon: "explore.svg",
   },
-  {
-    id: 3,
-    name: "Notification",
-    link: "/",
-    icon: "notification.svg",
-  },
+  // {
+  //   id: 3,
+  //   name: "Notification",
+  //   link: "/",
+  //   icon: "notification.svg",
+  // },
   {
     id: 4,
     name: "Messages",
@@ -79,20 +81,27 @@ const LeftBar = () => {
         </Link>
         {/* MENU LIST */}
         <div className='flex flex-col'>
-          {menuList.map((item) => {
+          {menuList.map((item, i) => {
             return (
-              <Link
-                href={item.link}
-                key={item.id}
-                className='p-2 rounded-full hover:bg-[#181818] flex items-center gap-4'>
-                <Image
-                  path={`icons/${item.icon}`}
-                  alt={item.name}
-                  h={24}
-                  w={24}
-                />
-                <span className='hidden xxl:inline'>{item.name}</span>
-              </Link>
+              <div key={item.id}>
+                {i === 2 && (
+                  <div className='custom-item'>
+                    <Notification />
+                  </div>
+                )}
+                <Link
+                  href={item.link}
+                  key={item.id}
+                  className='p-2 rounded-full hover:bg-[#181818] flex items-center gap-4'>
+                  <Image
+                    path={`icons/${item.icon}`}
+                    alt={item.name}
+                    h={24}
+                    w={24}
+                  />
+                  <span className='hidden xxl:inline'>{item.name}</span>
+                </Link>
+              </div>
             );
           })}
         </div>
@@ -107,6 +116,7 @@ const LeftBar = () => {
           Post
         </Link>
       </div>
+      <Socket />
       {/* USER */}
       {user && (
         <div className='flex items-center justify-between'>

@@ -73,7 +73,7 @@ const Post = ({
         <div
           className={`${
             type === "status" && "hidden"
-          } relative w-10 h-10 rounded-full overflow-hidden`}>
+          } relative w-10 h-10 rounded-full overflow-hidden -z-10`}>
           <Image
             path={originalPost.user.img || "general/noAvatar.png"}
             alt=''
@@ -149,6 +149,7 @@ const Post = ({
             </span>
           )}
           <PostInteractions
+            username={originalPost.user.username}
             postId={originalPost.id}
             count={originalPost._count}
             isLiked={!!originalPost.likes.length}
