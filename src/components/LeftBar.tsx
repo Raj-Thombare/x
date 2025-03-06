@@ -81,17 +81,16 @@ const LeftBar = () => {
         </Link>
         {/* MENU LIST */}
         <div className='flex flex-col'>
-          {menuList.map((item, i) => {
+          {menuList.map((item, idx) => {
             return (
-              <div key={item.id}>
-                {i === 2 && (
+              <div key={item.id || idx}>
+                {idx === 2 && (
                   <div className='custom-item'>
                     <Notification />
                   </div>
                 )}
                 <Link
                   href={item.link}
-                  key={item.id}
                   className='p-2 rounded-full hover:bg-[#181818] flex items-center gap-4'>
                   <Image
                     path={`icons/${item.icon}`}

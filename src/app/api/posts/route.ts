@@ -37,88 +37,53 @@ export async function GET(request: NextRequest) {
             },
         };
 
+    const postIncludeQuery = {
+        user: {
+            select: {
+                displayName: true,
+                username: true,
+                img: true,
+            },
+        },
+        _count: {
+            select: {
+                likes: true,
+                reposts: true,
+                comments: true,
+            },
+        },
+        likes: {
+            where: {
+                userId: userId,
+            },
+            select: {
+                id: true,
+            },
+        },
+        reposts: {
+            where: {
+                userId: userId,
+            },
+            select: {
+                id: true,
+            },
+        },
+        saves: {
+            where: {
+                userId: userId,
+            },
+            select: {
+                id: true,
+            },
+        },
+    };
+
     const posts = await prisma.post.findMany({
         include: {
-            user: {
-                select: {
-                    displayName: true,
-                    username: true,
-                    img: true,
-                },
-            },
             repost: {
-                include: {
-                    user: {
-                        select: {
-                            displayName: true,
-                            username: true,
-                            img: true,
-                        },
-                    },
-                    _count: {
-                        select: {
-                            likes: true,
-                            reposts: true,
-                            comments: true
-                        }
-                    },
-                    likes: {
-                        where: {
-                            userId: userId,
-                        },
-                        select: {
-                            id: true,
-                        },
-                    },
-                    reposts: {
-                        where: {
-                            userId: userId,
-                        },
-                        select: {
-                            id: true,
-                        },
-                    },
-                    saves: {
-                        where: {
-                            userId: userId,
-                        },
-                        select: {
-                            id: true,
-                        },
-                    }
-                },
+                include: postIncludeQuery,
             },
-            _count: {
-                select: {
-                    likes: true,
-                    reposts: true,
-                    comments: true
-                }
-            },
-            likes: {
-                where: {
-                    userId: userId,
-                },
-                select: {
-                    id: true,
-                },
-            },
-            reposts: {
-                where: {
-                    userId: userId,
-                },
-                select: {
-                    id: true,
-                },
-            },
-            saves: {
-                where: {
-                    userId: userId,
-                },
-                select: {
-                    id: true,
-                },
-            }
+            ...postIncludeQuery
         },
         where: whereCondition,
         take: LIMIT,

@@ -7,29 +7,13 @@ import PostInteractions from "./PostInteractions";
 import Link from "next/link";
 import { format } from "timeago.js";
 
-type PostWithDetails = PostType & {
-  user: {
-    displayName: string | null;
-    username: string;
-    img: string | null;
-  };
-  repost?:
-    | (PostType & {
-        user: {
-          displayName: string | null;
-          username: string;
-          img: string | null;
-        };
-        _count: {
-          likes: number;
-          reposts: number;
-          comments: number;
-        };
-        likes: { id: number }[];
-        reposts: { id: number }[];
-        saves: { id: number }[];
-      })
-    | null;
+type UserSummary = {
+  displayName: string | null;
+  username: string;
+  img: string | null;
+};
+
+type Engagement = {
   _count: {
     likes: number;
     reposts: number;
@@ -39,6 +23,12 @@ type PostWithDetails = PostType & {
   reposts: { id: number }[];
   saves: { id: number }[];
 };
+
+type PostWithDetails = PostType &
+  Engagement & {
+    user: UserSummary;
+    repost?: (PostType & Engagement & { user: UserSummary }) | null;
+  };
 
 const Post = ({
   type,

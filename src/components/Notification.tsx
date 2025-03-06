@@ -72,11 +72,15 @@ const Notification = () => {
               </div>
             );
           })}
-          <button
-            onClick={reset}
-            className='bg-black text-white p-2 text-sm rounded-lg'>
-            Mark as read
-          </button>
+          {notifications.length > 0 ? (
+            <button
+              onClick={reset}
+              className='bg-black text-white p-2 text-sm rounded-lg'>
+              Mark as read
+            </button>
+          ) : (
+            <div className='text-sm'>No Notifications</div>
+          )}
         </div>
       )}
     </div>
