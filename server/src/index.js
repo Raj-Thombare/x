@@ -1,8 +1,14 @@
-const { createServer } = require("http");
-const { Server } = require("socket.io");
-const { v4: uuidv4 } = require("uuid");
+import express from "express";
+import "dotenv/config";
+import { Server } from "socket.io";
+import { createServer } from "http";
+import cors from "cors";
+import { v4 as uuidv4 } from "uuid";
 
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 7000;
+
+const app = express();
+const httpServer = createServer(app);
 
 let onlineUsers = [];
 
@@ -24,13 +30,9 @@ const getUser = (username) => {
   return onlineUsers.find((user) => user.username === username);
 };
 
-const httpServer = createServer();
-
 const io = new Server(httpServer, {
   cors: {
-    origin: ["http://localhost:3000", "https://x-omega-one.vercel.app"],
-    methods: ["GET", "POST"],
-    credentials: true,
+    origin: "*",
   },
 });
 
@@ -58,6 +60,12 @@ io.on("connection", (socket) => {
   });
 });
 
+app.use(cors());
+
+app.use("/", (req, res) => {
+  return res.send("Its working");
+});
+
 httpServer.listen(PORT, () => {
-  console.log(`✅ Socket server is running on port ${PORT}`);
+  console.log(`Server started on port http://localhost:${PORT}`);
 });

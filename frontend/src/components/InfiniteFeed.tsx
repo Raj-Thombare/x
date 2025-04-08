@@ -7,10 +7,7 @@ import Post from "./Post";
 
 const fetchPosts = async (pageParam: number, userProfileId?: string) => {
   const res = await fetch(
-    "http://localhost:3000/api/posts?cursor=" +
-      pageParam +
-      "&user=" +
-      userProfileId
+    "api/posts?cursor=" + pageParam + "&user=" + userProfileId
   );
   return res.json();
 };
