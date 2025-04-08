@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "./Image";
 import { useUser } from "@clerk/nextjs";
 import Socket from "./Socket";
 import Notification from "./Notification";
+import LogoutButton from "./LogoutButton";
+import { User } from "@prisma/client";
 
 const menuList = [
   {
@@ -72,6 +74,25 @@ const menuList = [
 
 const LeftBar = () => {
   const { user } = useUser();
+
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+  const [userInfo, setUserInfo] = useState<User>();
+
+  useEffect(() => {
+    const getMe = async () => {
+      const res = await fetch("/api/me");
+      const data = await res.json();
+      if (!data.error) {
+        setUserInfo(data);
+      }
+    };
+
+    getMe();
+  }, []);
+
+  if (!user) return null;
+
   return (
     <div className='h-screen sticky top-0 flex flex-col justify-between pt-2 pb-8'>
       {/* LOGO MENU BUTTON */}
@@ -130,11 +151,29 @@ const LeftBar = () => {
               />
             </div>
             <div className='hidden xxl:flex flex-col'>
-              <span className='font-bold'>Raj Thombare</span>
-              <span className='text-sm text-textGray'>@RajTh0mbare</span>
+              <span className='font-bold'>{userInfo?.displayName}</span>
+              <span className='text-sm text-textGray'>@{user.username}</span>
             </div>
           </div>
-          <div className='hidden xxl:block cursor-pointer font-bold'>...</div>
+          <div
+            className='hidden xxl:block cursor-pointer font-bold'
+            onClick={() => setShowLogoutModal(true)}>
+            ...
+          </div>
+
+          {showLogoutModal && (
+            <div className='absolute bottom-14 left-0 w-64 bg-zinc-900 p-4 rounded-xl shadow-lg border border-zinc-800 z-50'>
+              <p className='mb-4 text-white'>Log out @{user.username}?</p>
+              <div className='flex justify-end gap-2'>
+                <button
+                  onClick={() => setShowLogoutModal(false)}
+                  className='px-3 py-1 rounded-md text-sm bg-zinc-700 hover:bg-zinc-600'>
+                  Cancel
+                </button>
+                <LogoutButton />
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
